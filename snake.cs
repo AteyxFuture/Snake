@@ -1,4 +1,7 @@
-using System;
 using
 using
 using
+using
+int main()
+{
+}
