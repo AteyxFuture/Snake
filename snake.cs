@@ -4,4 +4,5 @@ using
 using
 int main()
 {
+  float a;
 }
