@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Snake_std
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 0;
+            char player = 'O';
+            char food = 'X';
+            ConsoleKeyInfo Keyinfo;
+            int[] xsize = new int[] { 8, 7, 6, 5, 4, 3, 2 };
+            int[] ysize = new int[] { 3, 3, 3, 3, 3, 3, 3 };
+            int[] foodPos = new int[2];
+            Console.WriteLine(xsize.Count());
+            Console.ReadLine();
+            foodPos = Generator();
+            while (true)
+            {
+                Console.Clear();
+                for (int i=1; i < xsize.Length; ++i)
+                {
+                    if (xsize[0] == xsize[i]&&ysize[0]==ysize[i])
+                    {
+                        Console.Write("KONEC");
+                        break;
+                    }
+                }
+                
+                for (int i = 0; i < xsize.Count(); i++)
+                {
+                    Console.SetCursorPosition(xsize[i], ysize[i]);
+                    Console.Write(player);
+                }
+                if (xsize[0]==foodPos[0]&&ysize[0]==foodPos[1])
+                {
+                    foodPos=Generator();
+                    Array.Resize(ref xsize, xsize.Length + 1);
+                    Array.Resize(ref ysize, ysize.Length + 1);
+                    xsize[xsize.Length - 1] = xsize[xsize.Length - 2] + 1;
+                    ysize[ysize.Length - 1] = ysize[ysize.Length - 2] + 1;
+                }
+                Console.SetCursorPosition(foodPos[0], foodPos[1]);
+                Console.Write(food);
+                Keyinfo = Console.ReadKey(true);
+                switch (Keyinfo.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        for (int i = xsize.Count() - 1; i > 0; i--)
+                        {
+                            xsize[i] = xsize[i - 1];
+                            ysize[i] = ysize[i - 1];
+                        }
+                        xsize[0] = xsize[1] + 1;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        for (int i = xsize.Count() - 1; i > 0; i--)
+                        {
+                            xsize[i] = xsize[i - 1];
+                            ysize[i] = ysize[i - 1];
+                        }
+                        xsize[0] = xsize[1] - 1;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        for (int i = ysize.Count() - 1; i > 0; i--)
+                        {
+                            ysize[i] = ysize[i - 1];
+                            xsize[i] = xsize[i - 1];
+                        }
+                        ysize[0] = ysize[1] - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        for (int i = xsize.Count() - 1; i > 0; i--)
+                        {
+                            ysize[i] = ysize[i - 1];
+                            xsize[i] = xsize[i - 1];
+                        }
+                        ysize[0] = ysize[1] + 1;
+                        break;
+                }
+            }
+        }
+        static int[] Generator()
+        {
+            Random rnd = new Random();
+            int poziceX = rnd.Next(0,Console.WindowWidth);
+            int poziceY = rnd.Next(0, Console.WindowHeight);
+            int[] pole =new int[] {poziceX, poziceY};
+            return pole;
+        }
+    }
+}
