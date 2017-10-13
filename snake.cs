@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Snake_array_test1
+namespace Snake_std
 {
     class Program
     {
