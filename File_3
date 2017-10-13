@@ -25,16 +25,10 @@ namespace Snake_std
                 Console.Clear();
                 for (int i=1; i < xsize.Length; ++i)
                 {
-                    if (xsize[0] == xsize[i])
-                    { 
-                            for(int j=1; j<ysize.Length; ++j)
-                        {
-                            if (ysize[0] == ysize[j])
-                            {
-                                Console.Write("KONEC");
-                                break;
-                            }
-                        }
+                    if (xsize[0] == xsize[i]&&ysize[0]==ysize[i])
+                    {
+                        Console.Write("KONEC");
+                        break;
                     }
                 }
                 
