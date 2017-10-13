@@ -8,14 +8,19 @@ namespace Snake_std
 {
     class Program
     {
-        static char player = 'X';
+        static char food = 'X';
+        static char player = 'O';
         static ConsoleKeyInfo Keyinfo;
         static int[] xsize = new int[] { 8, 7, 6, 5, 4, 3, 2 };
         static int[] ysize = new int[] { 3, 3, 3, 3, 3, 3, 3 };
+        static int foodx;
+        static int foody;
+        static int lenght = 70;
+        static int height = 24;
 
 
         static void Main(string[] args)
-        {          
+        {
             Console.WriteLine(xsize.Count());
             Console.ReadLine();
             while (true)
@@ -27,25 +32,26 @@ namespace Snake_std
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(100);
-                Console.Clear();
+                check(0);
                 for (int i = 0; i < xsize.Count(); i++)
                 {
                     Console.SetCursorPosition(xsize[i], ysize[i]);
                     Console.Write(player);
                 }
                 //vykreslení hada (DOPRAVA)
+
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
+
                 posun(0);
                 xsize[0] = xsize[1] + 1;
                 //posunutí arrayú (DOPRAVA)
+
                 if (Console.KeyAvailable)
                 {
                     Keyinfo = Console.ReadKey();
                     switch (Keyinfo.Key)
-                    {
-                        case ConsoleKey.LeftArrow:
-                            moveleft();
-                            break;
+                    {                   
                         case ConsoleKey.UpArrow:
                             moveup();
                             break;
@@ -53,21 +59,23 @@ namespace Snake_std
                             movedown();
                             break;
                     }
-                }
+                }               
             }
         }
         public static void moveleft()
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(100);
-                Console.Clear();
+                check(0);
                 for (int i = 0; i < xsize.Count(); i++)
                 {
                     Console.SetCursorPosition(xsize[i], ysize[i]);
                     Console.Write(player);
                 }
                 //vykreslení hada (DOLEVA)
+
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
 
                 posun(0);
                 xsize[0] = xsize[1] - 1;
@@ -77,10 +85,7 @@ namespace Snake_std
                 {
                     Keyinfo = Console.ReadKey();
                     switch (Keyinfo.Key)
-                    {
-                        case ConsoleKey.RightArrow:
-                            moveright();
-                            break;
+                    {                      
                         case ConsoleKey.UpArrow:
                             moveup();
                             break;
@@ -89,20 +94,24 @@ namespace Snake_std
                             break;
                     }
                 }
+
+               
             }
         }
         public static void moveup()
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(100);
-                Console.Clear();
+                check(0);
                 for (int i = 0; i < xsize.Count(); i++)
                 {
                     Console.SetCursorPosition(xsize[i], ysize[i]);
                     Console.Write(player);
                 }
                 //vykreslení hada (NAHORU)
+
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
 
                 posun(0);
                 ysize[0] = ysize[1] - 1;
@@ -118,20 +127,16 @@ namespace Snake_std
                             break;
                         case ConsoleKey.RightArrow:
                             moveright();
-                            break;
-                        case ConsoleKey.DownArrow:
-                            movedown();
-                            break;
+                            break;                      
                     }
-                }
+                }          
             }
         }
         public static void movedown()
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(100);
-                Console.Clear();
+                check(0);
                 for (int i = 0; i < xsize.Count(); i++)
                 {
                     Console.SetCursorPosition(xsize[i], ysize[i]);
@@ -139,9 +144,13 @@ namespace Snake_std
                 }
                 //vykreslení hada (DOLU)
 
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
+
                 posun(0);
                 ysize[0] = ysize[1] + 1;
                 //posunutí arrayú (DOLU)
+
 
                 if (Console.KeyAvailable)
                 {
@@ -151,15 +160,13 @@ namespace Snake_std
                         case ConsoleKey.LeftArrow:
                             moveleft();
                             break;
-                        case ConsoleKey.UpArrow:
-                            moveup();
-                            break;
                         case ConsoleKey.RightArrow:
                             moveright();
                             break;
                     }
                 }
             }
+               
         }
         public static int posun(int a)
         {
@@ -170,5 +177,25 @@ namespace Snake_std
             }
             return 0;
         }
+        public static int Generator(int a)
+        {
+            Random rnd = new Random();
+            foodx = rnd.Next(1, lenght - 2);
+            foody = rnd.Next(1, height - 1);
+            Console.SetCursorPosition(foodx, foody);
+            Console.Write(food);
+            return 0;
+        }
+        public static int check(int a)
+        {
+            if (xsize[0] == -1 || ysize[0] == -1 || xsize[0] == 81 || ysize[0] == 24)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(0,0);
+                Console.Write("Game Over");
+                Console.ReadLine();               
+            }
+            return 0;
+        }       
     }
 }
