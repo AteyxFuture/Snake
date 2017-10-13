@@ -19,7 +19,10 @@ namespace Snake_std
             int[] foodPos = new int[2];
             Console.WriteLine(xsize.Count());
             Console.ReadLine();
-            foodPos = Generator();
+            do
+            {
+                foodPos = Generator();
+            } while (xsize.Contains(foodPos[0]) && ysize.Contains(foodPos[1]));
             while (true)
             {
                 Console.Clear();
@@ -39,11 +42,14 @@ namespace Snake_std
                 }
                 if (xsize[0]==foodPos[0]&&ysize[0]==foodPos[1])
                 {
-                    foodPos=Generator();
                     Array.Resize(ref xsize, xsize.Length + 1);
                     Array.Resize(ref ysize, ysize.Length + 1);
                     xsize[xsize.Length - 1] = xsize[xsize.Length - 2] + 1;
                     ysize[ysize.Length - 1] = ysize[ysize.Length - 2] + 1;
+                    do
+                    {
+                        foodPos = Generator();
+                    } while (xsize.Contains(foodPos[0]) && ysize.Contains(foodPos[1]));
                 }
                 Console.SetCursorPosition(foodPos[0], foodPos[1]);
                 Console.Write(food);
