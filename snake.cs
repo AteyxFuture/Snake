@@ -11,15 +11,15 @@ namespace Snake_std
         static char food = 'X';
         static char player = 'O';
         static ConsoleKeyInfo Keyinfo;
-        static int[] xsize = new int[] { 8, 7, 6, 5, 4, 3, 2 };
-        static int[] ysize = new int[] { 3, 3, 3, 3, 3, 3, 3 };
+        static int[] xsize = new int[] { 3, 2};
+        static int[] ysize = new int[] { 3, 3};
         static int foodx;
         static int foody;
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine(xsize.Count());
+            Console.WriteLine("Snake game: press Enter);
             Console.ReadLine();
             while (true)
             {
