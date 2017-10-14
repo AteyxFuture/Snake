@@ -15,10 +15,6 @@ namespace Snake_std
         static int[] ysize = new int[] { 3, 3, 3, 3, 3, 3, 3 };
         static int foodx;
         static int foody;
-        static int lenght = 70;
-        static int height = 24;
-        static int GameOver;
-        static int Growth;
 
 
         static void Main(string[] args)
@@ -27,7 +23,12 @@ namespace Snake_std
             Console.ReadLine();
             while (true)
             {
-                Generator(0);
+                do
+                {
+                    Random rnd = new Random();
+                    foodx = rnd.Next(1, Console.WindowWidth - 2);
+                    foody = rnd.Next(1, Console.WindowHeight - 1);
+                } while (xsize.Contains(foodx) && ysize.Contains(foody));
                 moveright();
             }
         }
@@ -37,10 +38,7 @@ namespace Snake_std
             {
                 check(0);
                 CheckSnake(0);
-                if (GameOver == 1)
-                {
-                    EndGame();
-                }
+                
                 WriteFood();
                 for (int i = 0; i < xsize.Count(); i++)
                 {
@@ -48,11 +46,7 @@ namespace Snake_std
                     Console.Write(player);
                 }
                 Grow();
-                if (Growth == 1)
-                {
-                    Generator(0);
-                    Growth = 0;
-                }
+                Generator();
                 //vykreslení hada (DOPRAVA)
 
                 System.Threading.Thread.Sleep(100);
@@ -83,10 +77,7 @@ namespace Snake_std
             {
                 check(0);
                 CheckSnake(0);
-                if (GameOver == 1)
-                {
-                    EndGame();
-                }
+               
                 WriteFood();
                 for (int i = 0; i < xsize.Count(); i++)
                 {
@@ -94,11 +85,7 @@ namespace Snake_std
                     Console.Write(player);
                 }
                 Grow();
-                if (Growth == 1)
-                {
-                    Generator(0);
-                    Growth = 0;
-                }
+                Generator();
                 //vykreslení hada (DOLEVA)
 
                 System.Threading.Thread.Sleep(100);
@@ -131,10 +118,7 @@ namespace Snake_std
             {
                 check(0);
                 CheckSnake(0);
-                if (GameOver == 1)
-                {
-                    EndGame();
-                }
+                
                 WriteFood();
                 for (int i = 0; i < xsize.Count(); i++)
                 {
@@ -142,11 +126,7 @@ namespace Snake_std
                     Console.Write(player);
                 }
                 Grow();
-                if (Growth == 1)
-                {
-                    Generator(0);
-                    Growth = 0;
-                }
+                Generator();
                 //vykreslení hada (NAHORU)
 
                 System.Threading.Thread.Sleep(100);
@@ -177,10 +157,7 @@ namespace Snake_std
             {
                 check(0);
                 CheckSnake(0);
-                if (GameOver == 1)
-                {
-                    EndGame();
-                }
+                
                 WriteFood();
                 for (int i = 0; i < xsize.Count(); i++)
                 {
@@ -188,11 +165,7 @@ namespace Snake_std
                     Console.Write(player);
                 }
                 Grow();
-                if (Growth == 1)
-                {
-                    Generator(0);
-                    Growth = 0;
-                }
+                Generator();
                 //vykreslení hada (DOLU)
 
                 System.Threading.Thread.Sleep(100);
@@ -228,17 +201,17 @@ namespace Snake_std
             }
             return 0;
         }
-        public static int Generator(int a)
+        public static void Generator()
         {
-            do
+            if (xsize[0] == foodx && ysize[0] == foody)
             {
-                Random rnd = new Random();
-                foodx = rnd.Next(1, Console.WindowWidth - 2);
-                foody = rnd.Next(1, Console.WindowHeight - 1);
-            } while (xsize.Contains(foodx) && ysize.Contains(foody));
-            Console.SetCursorPosition(foodx, foody);
-            Console.Write(food);
-            return 0;
+                do
+                {
+                    Random rnd = new Random();
+                    foodx = rnd.Next(1, Console.WindowWidth - 2);
+                    foody = rnd.Next(1, Console.WindowHeight - 1);
+                } while (xsize.Contains(foodx) && ysize.Contains(foody));
+            }
         }
         public static void WriteFood()
         {
@@ -249,11 +222,7 @@ namespace Snake_std
         {
             if (xsize[0] == -1 || ysize[0] == -1 || xsize[0] == Console.WindowWidth || ysize[0] == Console.WindowHeight)
             {
-                Console.Clear();
-                Console.SetCursorPosition(0, 0);
-                Console.Write("Game Over");
-                Console.ReadLine();
-                GameOver = 1;
+                EndGame();
             }
             return 0;
         }
@@ -263,10 +232,7 @@ namespace Snake_std
             {
                 if (xsize[0] == xsize[i] && ysize[0] == ysize[i])
                 {
-                    Console.Write("Game Over");
-                    Console.ReadLine();
-                    GameOver = 1;
-                    break;
+                    EndGame();
                 }
             }
             return 0;
@@ -279,11 +245,11 @@ namespace Snake_std
                 Array.Resize(ref ysize, ysize.Length + 1);
                 xsize[xsize.Length - 1] = xsize[xsize.Length - 2] + 1;
                 ysize[ysize.Length - 1] = ysize[ysize.Length - 2] + 1;
-                Growth=1;
             }
         }
         public static void EndGame()
         {
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("GAME ENDED");
             Environment.Exit(0);
