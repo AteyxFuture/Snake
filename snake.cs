@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Snake_std
 {
     class Program
     {
-        static char food = 'X';
-        static char player = 'O';
+        static char food = '█';
+        static char player = '█';
+        static string colorsnake= "5fa113";
+        static string colorfood= "f40c00";
         static ConsoleKeyInfo Keyinfo;
         static int[] xsize = new int[] { 3, 2 };
         static int[] ysize = new int[] { 3, 3 };
@@ -20,6 +23,7 @@ namespace Snake_std
         {
             Console.WriteLine("Snake game: press Enter");
             Console.ReadLine();
+            Console.CursorVisible = false;
             while (true)
             {
                 Generator();
@@ -31,7 +35,7 @@ namespace Snake_std
             while (true)
             {
                 dostuff(0);
-                xsize[0] = xsize[1] + 1;              
+                xsize[0] = xsize[1] + 1;
 
                 if (Console.KeyAvailable)
                 {
@@ -44,7 +48,7 @@ namespace Snake_std
             while (true)
             {
                 dostuff(0);
-                xsize[0] = xsize[1] - 1;               
+                xsize[0] = xsize[1] - 1;
 
                 if (Console.KeyAvailable)
                 {
@@ -57,7 +61,7 @@ namespace Snake_std
             while (true)
             {
                 dostuff(0);
-                ysize[0] = ysize[1] - 1;              
+                ysize[0] = ysize[1] - 1;
                 if (Console.KeyAvailable)
                 {
                     chooseRL();
@@ -69,7 +73,7 @@ namespace Snake_std
             while (true)
             {
                 dostuff(0);
-                ysize[0] = ysize[1] + 1;              
+                ysize[0] = ysize[1] + 1;
                 if (Console.KeyAvailable)
                 {
                     chooseRL();
@@ -103,14 +107,14 @@ namespace Snake_std
             }
         }
         public static void Generator()
-        {          
-                do
-                {
-                    Random rnd = new Random();
-                    foodx = rnd.Next(1, Console.WindowWidth - 2);
-                    foody = rnd.Next(1, Console.WindowHeight - 1);
-                } while (xsize.Contains(foodx) && ysize.Contains(foody));          
-        }     
+        {
+            do
+            {
+                Random rnd = new Random();
+                foodx = rnd.Next(1, Console.WindowWidth - 2);
+                foody = rnd.Next(1, Console.WindowHeight - 1);
+            } while (xsize.Contains(foodx) && ysize.Contains(foody));
+        }
         public static void EndGame()
         {
             Console.Clear();
@@ -118,7 +122,7 @@ namespace Snake_std
             Console.WriteLine("GAME ENDED");
             Environment.Exit(0);
         }
-        public static int dostuff (int a)
+        public static int dostuff(int a)
         {
             if (xsize[0] == -1 || ysize[0] == -1 || xsize[0] == Console.WindowWidth || ysize[0] == Console.WindowHeight)
             {
