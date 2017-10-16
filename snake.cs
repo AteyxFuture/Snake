@@ -116,8 +116,10 @@ namespace Snake_std
         public static void EndGame()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine("GAME ENDED");
+            Console.WriteLine("GAME ENDED Score: " + (xsize.Count()-2));
+            Console.ReadKey();
             Environment.Exit(0);
         }
         public static int dostuff(int a)
