@@ -11,8 +11,6 @@ namespace Snake_std
     {
         static char food = '█';
         static char player = '█';
-        static string colorsnake= "5fa113";
-        static string colorfood= "f40c00";
         static ConsoleKeyInfo Keyinfo;
         static int[] xsize = new int[] { 3, 2 };
         static int[] ysize = new int[] { 3, 3 };
@@ -118,8 +116,10 @@ namespace Snake_std
         public static void EndGame()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine("GAME ENDED");
+            Console.WriteLine("GAME ENDED Score: " + (xsize.Count() - 2));
+            Console.ReadKey();
             Environment.Exit(0);
         }
         public static int dostuff(int a)
@@ -135,8 +135,10 @@ namespace Snake_std
                     EndGame();
                 }
             }
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(foodx, foody);
             Console.Write(food);
+            Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < xsize.Count(); i++)
             {
                 Console.SetCursorPosition(xsize[i], ysize[i]);
